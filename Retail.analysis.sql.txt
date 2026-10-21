@@ -1,0 +1,23 @@
+-- Global Retail Business Analysis Queries
+-- Project: Global Retail SQL Analysis
+
+-- Query 1: Total Revenue and Profit by Region
+SELECT 
+    r.region_name,
+    SUM(s.revenue) AS total_revenue,
+    SUM(s.revenue - s.cost) AS total_profit
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+GROUP BY r.region_name
+ORDER BY total_profit DESC;
+
+-- Query 2: Top 3 Best-Selling Products by Quantity
+SELECT 
+    p.product_name,
+    p.category,
+    SUM(s.quantity) AS total_units_sold
+FROM sales s
+JOIN products p ON s.product_id = p.product_id
+GROUP BY p.product_name, p.category
+ORDER BY total_units_sold DESC
+LIMIT 3;
